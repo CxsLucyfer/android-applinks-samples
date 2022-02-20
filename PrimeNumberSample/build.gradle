@@ -1,0 +1,54 @@
+buildscript {
+    repositories {
+        maven { url 'https://maven.google.com' }
+        maven { url 'https://jcenter.bintray.com' }
+    }
+    dependencies {
+        classpath "com.android.tools.build:gradle:7.1.1"
+    }
+}
+
+allprojects {
+    repositories{
+      maven { url 'https://maven.google.com' }
+      maven { url 'https://jcenter.bintray.com' }
+    }
+}
+
+project(':') {
+    apply plugin: 'com.android.application'
+
+    android {
+        compileSdkVersion 30
+        buildToolsVersion "22.6.2"
+        defaultConfig {
+            applicationId "org.applinks.primenumbersampleapp"
+            minSdkVersion 21
+            targetSdkVersion 30
+            versionCode 1
+            versionName "1.0"
+        }
+
+        signingConfigs {
+            release {
+                storeFile file(STORE_FILE_PATH)
+                storePassword STORE_PASSWORD
+                keyAlias KEY_ALIAS
+                keyPassword KEY_PASSWORD
+            }
+        }
+
+        buildTypes {
+            release {
+                minifyEnabled true
+                shrinkResources true
+                proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+                signingConfig signingConfigs.release
+            }
+        }
+
+        lintOptions {
+            disable 'ProtectedPermissions','ExpiredTargetSdkVersion','IconLocation'
+        }
+    }
+}
