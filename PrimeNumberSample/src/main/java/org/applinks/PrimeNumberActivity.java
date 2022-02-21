@@ -29,7 +29,8 @@ import android.widget.Toast;
 
 public abstract class PrimeNumberActivity extends Activity {
     protected final static String NUMBER_KEY = "primenumber.number";
-    protected final static String APPLINK_URL_BASE = "http://primenumber.parseapp.com";
+    protected final static String APPLINK_URL_BASE = "http://google.com";
+    protected final static String APPLINK_URL_BASE_WITH_CUSTOM_SCHEME = "pn-da://google.com";
 
     /**
      * Generate a Link for current activity view, that user can copy paste to other application to share.

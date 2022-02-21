@@ -33,7 +33,7 @@ public class NumberDetailActivity extends PrimeNumberActivity {
 
     @Override  //PrimeNumberActivity
     public Uri getCopyLink() {
-      return Uri.parse(APPLINK_URL_BASE + "/number?id=" + String.valueOf(currentNum));
+      return Uri.parse(APPLINK_URL_BASE_WITH_CUSTOM_SCHEME + "/number?id=" + String.valueOf(currentNum));
     }
 
     @Override
@@ -49,21 +49,32 @@ public class NumberDetailActivity extends PrimeNumberActivity {
             // Here we are going to get the information that is passed in from the intent generated from the App Link.
             // App Links preserve all the data that you encoded into the original web URL, and you can get the original
             // web URL from the extras in the intent bundle, it is in the bundle field al_applink_data::target_url.
-
-            Bundle appLinkData = getIntent().getBundleExtra("al_applink_data");
-            if (appLinkData != null) {
-                String targetURLString = appLinkData.getString("target_url");
-                Uri targetURL = Uri.parse(targetURLString);
+            Intent intent = getIntent();
+            if (Intent.ACTION_VIEW.equals(intent.getAction())) {
+                Uri uri = intent.getData();
                 try {
-                    passedInNumber = Integer.parseInt(targetURL.getQueryParameter("id"));
+                    passedInNumber = Integer.parseInt(uri.getQueryParameter("id"));
                 } catch (NumberFormatException e) {
                     passedInNumber = (int)(Math.random() * 100);
                 }
             } else {
-                // if we cannot find any al_applink_data form intent, probably this action is not started by AppLink.
-                // In our case, we just show a random number.
                 passedInNumber = (int)(Math.random() * 100);
             }
+
+            //Bundle appLinkData = getIntent().getBundleExtra("al_applink_data");
+            //if (appLinkData != null) {
+            //    String targetURLString = appLinkData.getString("target_url");
+            //    Uri targetURL = Uri.parse(targetURLString);
+            //    try {
+            //        passedInNumber = Integer.parseInt(targetURL.getQueryParameter("id"));
+            //    } catch (NumberFormatException e) {
+            //        passedInNumber = (int)(Math.random() * 100);
+            //    }
+            //} else {
+            //    // if we cannot find any al_applink_data form intent, probably this action is not started by AppLink.
+            //    // In our case, we just show a random number.
+            //    passedInNumber = (int)(Math.random() * 100);
+            //}
         }
 
 

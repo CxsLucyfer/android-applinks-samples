@@ -30,7 +30,8 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="primenumber-sample-app" />
+                <!--<data android:scheme="primenumber-sample-app" />-->
+                <data android:scheme="http" android:host="google.com" />
             </intent-filter>
         </activity>
 
@@ -38,6 +39,8 @@
                   android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="pn-da" android:host="google.com" />
             </intent-filter>
             <!--
                 where "al:android:class" is specified in the html meta tags, instead of "al:android:url".
